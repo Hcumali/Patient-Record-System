@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kontrol Paneli</title>
+    <style>
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 10rem;
+        }
+        .btn-lg{
+            margin-bottom: 2rem;
+        }
+        b {
+            font-size: 35px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+</head>
+<body style=" background-color: darkgrey">
+    <div class="container">
+        <button type="button" class="btn btn-primary btn-lg" onclick="GoToKayıt()"><b>Hasta Kayıt Oluştur</b></button>
+        <button type="button" class="btn btn-primary btn-lg" onclick="GoToListele()"><b>Hasta Kayıt Listesi</b></button>
+        <button type="button" class="btn btn-danger btn-lg" onclick="LogOut()"><b>Çıkış Yap</b></button>
+    </div>
+</body>
+</html>
+
+<script>
+    function GoToKayıt() {
+        window.location = "/Dashboard/HastaKayıt";
+    }
+    function GoToListele() {
+        window.location = "/Dashboard/HastaListele";
+    }
+    function LogOut() {
+        $.ajax({
+            url: "/Dashboard/DeleteCookie",
+            type: "POST",
+            data: {
+                cookieName: "isLoggedIn"
+            },
+            success: function (result) {
+                if (result == "False") {
+                    window.location = "/";
+                }
+                else {
+                    console.log("hataaa");
+                }
+            }
+        });
+    }
+</script>

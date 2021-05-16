@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Hasta Kayıt Olusturma </title>
+        <style>
+            #dropdown {
+                width: 14rem;
+                height: 3rem;
+                color: gray;
+                background-color: #F5F5F5;
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+                font-size: 16px;
+            }
+
+            #dropdown:hover {
+                background-color: lightgray;
+            }
+
+            #dropdown option {
+                font-size: 16px;
+                text-align: center;
+            }
+
+            #dropdown option[value="muayene"] {
+                background-color: darkkhaki;
+            }
+
+            #dropdown option[value="fizikTedavi"] {
+                background-color: antiquewhite;
+            }
+
+            #date_giris, #date_cikis {
+                width: 14rem;
+                height: 3rem;
+                color: gray;
+                background-color: #F5F5F5;
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+                font-size: 16px;
+                font-display: auto;
+            }
+
+            #btn_anasayfa, #btn_kayit {
+                margin: 21px;
+            }
+        </style>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    </head>
+    <body style=" background-color: darkgrey">
+        <div class="container">
+            <div class="row col-md-offset-2" style="margin-bottom: 4rem;display:flex; align-items:center;justify-content:center;">
+                <h1 class="text-center text-danger pt-2">HASTA TAKİP KAYDI OLUŞTURMA</h1>
+            </div>
+            <div class="row col-md-offset-10" style="display:flex; align-items:center;justify-content:center;">
+                <div class="col-lg-3">
+                    <label class="mdc-text-field mdc-text-field--filled mdc-text-field--no-label">
+                        <span class="mdc-text-field__ripple"></span>
+                        <input class="mdc-text-field__input" type="text" placeholder="TC No" aria-label="Label" id="tc">
+                        <span class="mdc-line-ripple"></span>
+                    </label>
+                    <br><br>
+                    <label class="mdc-text-field mdc-text-field--filled mdc-text-field--no-label">
+                        <span class="mdc-text-field__ripple"></span>
+                        <input class="mdc-text-field__input" type="text" placeholder="Ad" aria-label="Label" id="ad">
+                        <span class="mdc-line-ripple"></span>
+                    </label>
+                    <br><br>
+                    <label class="mdc-text-field mdc-text-field--filled mdc-text-field--no-label">
+                        <span class="mdc-text-field__ripple"></span>
+                        <input class="mdc-text-field__input" type="text" placeholder="Soyad" aria-label="Label" id="soyad">
+                        <span class="mdc-line-ripple"></span>
+                    </label>
+                </div>
+                <div class="col-lg-3">
+                    <label class="mdc-text-field mdc-text-field--filled mdc-text-field--no-label">
+                        <span class="mdc-text-field__ripple"></span>
+                        <input class="mdc-text-field__input" type="text" placeholder="Adres" aria-label="Label" id="adres">
+                        <span class="mdc-line-ripple"></span>
+                    </label>
+                    <br><br>
+                    <label class="mdc-text-field mdc-text-field--filled mdc-text-field--no-label">
+                        <span class="mdc-text-field__ripple"></span>
+                        <input class="mdc-text-field__input" type="text" placeholder="Telefon No" aria-label="Label" id="telefon">
+                        <span class="mdc-line-ripple"></span>
+                    </label>
+                    <br><br>
+                    <label class="mdc-text-field mdc-text-field--filled mdc-text-field--no-label">
+                        <span class="mdc-text-field__ripple"></span>
+                        <input class="mdc-text-field__input" type="text" placeholder="Yaş" aria-label="Label" id="yas">
+                        <span class="mdc-line-ripple"></span>
+                    </label>
+                </div>
+                <div class="col-lg-3">
+                    <select name="dept" id="dropdown">
+                        <option selected value="">Tanı Seçiniz</option>
+                        <option value="muayene">Muayene</option>
+                        <option value="fizikTedavi">Fizik Tedavi</option>
+                    </select>
+                    <br><br>
+                    <div id="dates"> </div>
+                </div>
+                <div id="buttons" class="col-lg-3">
+                    <button type="button" class="btn btn-success btn-lg" id="btn_kayit" onclick="KayitOlustur()"><b>Kayıt Oluştur</b></button>
+                    <button type="button" class="btn btn-danger btn-lg" id="btn_anasayfa" onclick="GoToAnasayfa()"><b>Ana Sayfaya Dön</b></button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+    document.getElementById('dropdown').addEventListener('change', function (e) {
+        if (e.target.name === 'dept') {
+            if (e.target.value === "muayene") {
+                document.getElementById("dates").innerHTML =
+                    "<label class=\"text - success\">Giriş Tarihi</label>" +
+                    "<br><input type=\"date\" id=\"date_giris\"><br>";
+            }
+            else if (e.target.value === "fizikTedavi") {
+                document.getElementById("dates").innerHTML =
+                    "<label class=\"text - success\">Giriş Tarihi</label>" +
+                    "<br><input type=\"date\" id=\"date_giris\"><br>" +
+                    "<label class=\"text - primary\">Çıkış Tarihi</label>" +
+                    "<br><input type=\"date\" id=\"date_cikis\">";
+            }
+        }
+    });
+</script>
+<script>
+    function GoToAnasayfa() {
+        window.location = "/Dashboard/Index";
+    }
+</script>
+<script>
+    function KayitOlustur() {
+        var tc = document.getElementById("tc").value;
+        var ad = document.getElementById("ad").value;
+        var soyad = document.getElementById("soyad").value;
+        var adres = document.getElementById("adres").value;
+        var telefon = document.getElementById("telefon").value;
+        var yas = parseInt(document.getElementById("yas").value);
+
+        var tanı = document.getElementById("dropdown").selectedIndex;
+        if (tanı === 1) {
+            var girisTarihi = document.getElementById("date_giris").value;
+
+            if (tc.length === 0 || ad.length === 0 || soyad.length === 0 ||
+                adres.length === 0 || telefon.length === 0 || yas.length === 0 || girisTarihi.length === 0) {
+                alert("Kutucuklar boş bırakılamaz !");
+                return;
+            }
+            else {
+                if (tc.length < 11) {
+                    alert("TC No 11 haneden küçük olamaz. !");
+                    return;
+                }
+                else if (ad.length < 3 || soyad.length < 2 || adres.length < 3) {
+                    alert("Alanlar 3 haneden küçük olamaz !");
+                    return;
+                }
+                else if (telefon.length < 10) {
+                    alert("Telefon numarası bu formatta olmalıdır: 536 111 22 33");
+                    return;
+                }
+                else if (!(yas > 0 && yas < 150)) {
+                    alert("Hatalı yaş girdisi !");
+                    return;
+                }
+            }
+
+            // AJAX REQUEST
+            $.ajax({
+                url: "/Dashboard/KayitOlustur",
+                type: "POST",
+                data: {
+                    tcRegister: tc, adRegister: ad, soyadRegister: soyad, adresRegister: adres, telefonRegister: telefon, yasRegister: yas, taniRegister: "Muayene", girisTarihiRegister: girisTarihi
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (result == "True") {
+                        alert("Başarılı bir şekilde kayıt oluşturdunuz.");
+                        window.location = "HastaKayıt";
+                    }
+                    else {
+                        alert("HATA. Tekrar Deneyiniz.");
+                        window.location = "HastaKayıt";
+                    }
+                }
+            });
+
+        }
+
+        else if (tanı === 2) {
+            var girisTarihi = document.getElementById("date_giris").value;
+            var cikisTarihi = document.getElementById("date_cikis").value;
+
+            if (tc.length === 0 || ad.length === 0 || soyad.length === 0 || adres.length === 0
+                || telefon.length === 0 || yas.length === 0 || girisTarihi.length === 0 || cikisTarihi.length === 0) {
+                alert("Kutucuklar boş bırakılamaz !");
+                return;
+            }
+            else {
+                if (tc.length < 11) {
+                    alert("TC No 11 haneden küçük olamaz. !");
+                    return;
+                }
+                else if (ad.length < 3 || soyad.length < 2 || adres.length < 3) {
+                    alert("Alanlar 3 haneden küçük olamaz !");
+                    return;
+                }
+                else if (telefon.length < 10) {
+                    alert("Telefon numarası bu formatta olmalıdır: 536 111 22 33");
+                    return;
+                }
+                else if (!(yas > 0 && yas < 150)) {
+                    alert("Hatalı yaş girdisi !");
+                    return;
+                }
+            }
+
+            // AJAX REQUEST
+            $.ajax({
+                url: "/Dashboard/KayitOlustur",
+                type: "POST",
+                data: {
+                    tcRegister: tc, adRegister: ad, soyadRegister: soyad, adresRegister: adres, telefonRegister: telefon, yasRegister: yas, taniRegister: "Fizik Tedavi", girisTarihiRegister: girisTarihi, cikisTarihiRegister: cikisTarihi
+                },
+                success: function (result) {
+                    if (result == "True") {
+                        alert("Başarılı bir şekilde kayıt oluşturdunuz.");
+                        window.location = "HastaKayıt";
+                    }
+                    else {
+                        alert("HATA. Tekrar Deneyiniz.");
+                        window.location = "HastaKayıt";
+                    }
+                }
+            });
+
+        }
+
+        else if (tanı != 1 && tanı != 2) {
+            alert("Bir tanı seçmelisiniz !");
+            return;
+        }
+    }
+</script>
+
+
+
+
+
+
+

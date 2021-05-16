@@ -1,0 +1,77 @@
+﻿@model HastaTakipSistemi.Models.DashboardModel
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Hasta Kayıt Listesi</title>
+        <style>
+        </style>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    </head>
+    <body style=" background-color: darkgrey">
+        <div class="container" style="display: flex; align-items: center; justify-content: center; flex-direction:column">
+            <div class="row col-md-offset-2" style="margin-bottom: 3rem; display:flex; align-items:center; justify-content:center">
+                <h2 class="text-center text-danger pt-3">HASTA TAKİP KAYIT LİSTESİ</h2>
+            </div>
+            <div class="row col-md-offset-8" style="margin-bottom: 2rem; display: flex; align-items: center; justify-content: center">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">TC</th>
+                            <th scope="col">Ad</th>
+                            <th scope="col">Soyad</th>
+                            <th scope="col">Adres</th>
+                            <th scope="col">Telefon</th>
+                            <th scope="col">Yaş</th>
+                            <th scope="col">Tanı</th>
+                            <th scope="col">Giriş Tarihi</th>
+                            <th scope="col">Çıkış Tarihi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sayac = 0;
+                            foreach (var item in Model.patients)
+                            {
+                                <tr>
+                                    <th scope="row">@{++sayac;} @sayac</th>
+                                    <td>@item.TC</td>
+                                    <td>@item.Ad</td>
+                                    <td>@item.Soyad</td>
+                                    <td>@item.Adres</td>
+                                    <td>@item.TelNo</td>
+                                    <td>@item.Yas</td>
+                                    <td>@item.Tani</td>
+                                    <td>@item.Giris</td>
+                                    <td>@item.Cikis</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row col-md-offset-2" style="display:flex; align-items:center; justify-content:center">
+                <button type="button" class="btn btn-success btn-lg" onclick="GoToAnasayfa()"><b>Ana Sayfaya Dön</b></button>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+    function HastaKayitListele() {
+
+    }
+</script>
+
+<script>
+    function GoToAnasayfa() {
+        window.location = "/Dashboard/Index";
+    }
+</script>

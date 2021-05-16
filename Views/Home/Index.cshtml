@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hasta Takip Sistemi</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #17a2b8;
+            height: 100vh;
+        }
+
+        #login .container #login-row #login-column #login-box {
+            margin-top: 3rem;
+            max-width: 600px;
+            height: 320px;
+            border: 1px solid #9C9C9C;
+            background-color: #EAEAEA;
+        }
+
+            #login .container #login-row #login-column #login-box #login-form {
+                padding: 20px;
+            }
+
+                #login .container #login-row #login-column #login-box #login-form #register-link {
+                    margin-top: -85px;
+                }
+
+        #btn_giris {
+            margin: 15px;
+            margin-left: 41%;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+</head>
+
+    <body style="background-color:darkgrey">
+        <div id="login">
+            <h3 class="text-center text-danger pt-5">Hasta Takip Sistemi</h3>
+            <div class="container">
+                <div id="login-row" class="row justify-content-center align-items-center">
+                    <div id="login-column" class="col-md-6">
+                        <div id="login-box" class="col-md-12">
+                            <h3 class="text-center text-danger" style="margin: 10px 1px 25px 1px">Giriş</h3>
+                            <div class="text-center">
+                                <div style="margin:15px">
+                                    <label class="text-info">Kullanıcı Adı:</label><br>
+                                    <input type="text" id="username">
+                                </div>
+                                <div style="margin:15px">
+                                    <label class="text-info">Şifre:</label><br>
+                                    <input type="password" id="password">
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-primary" onclick="LoginProcess()">Giriş</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
+
+<script>
+    // entere basıldıktan sonra submit olmasını sağlayan kod
+    $("#password").keypress(function (event) {
+        if (event.keyCode == 13) {
+            LoginProcess();
+        }
+    });
+
+    // giriş işlemi
+    function LoginProcess() {
+        let userName = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+
+        if (userName.length < 2 || password.length < 2) {
+            alert("Kullanıcı adı veya şifre boş bırakılamaz!");
+            return;
+        }
+
+
+        $.ajax({
+            url: "/Home/LoginProcess",
+            type: "POST",
+            data: {
+                userNameLogin: userName, passwordLogin: password
+            },
+            success: function (result) {
+                console.log("result: ",result);
+                console.log("typeof result: ",typeof result);
+
+                if (result == "True") {
+                    window.location = "/Dashboard/Index";
+                }
+                else {
+                    alert("Hatalı Giriş Bilgisi !");
+                }
+            }
+        });
+    }
+
+</script>
+
+
+
